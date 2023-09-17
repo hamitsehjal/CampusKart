@@ -1,0 +1,16 @@
+{
+  "name": "campuscart-backend",
+  "version": "1.0.0",
+  "description": "MongoDB Setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hamit Sehjal",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "3.0.3"
+  }
+}
