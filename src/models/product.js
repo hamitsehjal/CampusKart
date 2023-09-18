@@ -63,6 +63,7 @@ const productSchema = new Schema({
             'Baby Care',
         ],
         required: true,
+        index: true,
     },
     reviews: [reviewSchema],
 }, {
