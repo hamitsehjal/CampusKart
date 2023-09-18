@@ -5,7 +5,7 @@
 We follow a simplified branching strategy to keep our development organized:
 
 - We have a single main branch (`main`) that serves as the primary development branch.
-- For each new feature or bug fix, team members create separate `feature` branches. [Check](https://github.com/hamitsehjal/CampusCart-BACKEND/edit/main/README.md#branch-naming-conventions) out these notes on how to name the branches.
+- For each new feature or bug fix, team members create separate `feature` branches. [Check](https://github.com/hamitsehjal/CampusCart-BACKEND#branch-naming-conventions) out these notes on how to name the branches.
 - Once a feature is complete and tested, it is `merged` into the main branch.
 
 ### How to implement Branching Strategy
