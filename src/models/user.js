@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
     profilePicture: {
         type: Buffer,
-        default: Buffer.from(''). // Initializing as an empty buffer
+        default: Buffer.from(''), // Initializing as an empty buffer
     }
 
 }, { timestamps: true })
