@@ -13,8 +13,8 @@ const reviewSchema = new Schema({
     rating: {
         type: Number,
         required: true,
-        min: 1,
-        max: 5
+        min: [1, 'Must be at least 1, got {VALUE}'],
+        max: [5, 'can be at most 5, got {VALUE}'],
     },
     comment: String,
 }, { timestamps: true })
