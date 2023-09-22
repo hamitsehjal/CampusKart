@@ -18,8 +18,8 @@ const userSchema = new Schema({
         type: Number,
         required: true,
         unique: true,
-        min: 100000000,
-        max: 999999999,
+        min: [100000000, 'Must be at least 100000000, got {VALUE}'],
+        max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
     },
     profilePicture: {
         type: Buffer,
