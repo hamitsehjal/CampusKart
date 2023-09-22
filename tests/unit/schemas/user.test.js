@@ -110,3 +110,71 @@ describe('Password: Validation and Business Logic', () => {
     })
 })
 
+describe('StudentId: Validation and Business Logic', () => {
+    test('StudentId is required', async () => {
+        try {
+
+            await User.create({
+                emailAddress: "test@myseneca.ca",
+                password: "testing",
+            })
+
+            throw new Error('Create function should not succeed');
+        } catch (err) {
+            expect(err.message).toContain('studentId');
+            expect(err.message).toContain('required');
+        }
+    });
+
+    test('StudentId should be unique', async () => {
+        try {
+
+            await User.init();
+            await User.create({
+                emailAddress: "test1@myseneca.ca",
+                password: "test",
+                studentId: 111222111,
+
+            })
+
+            await User.create({
+                emailAddress: "test2@myseneca.ca",
+                password: "test",
+                studentId: 111222111,
+
+            })
+
+            throw new Error('Save operation should not proceed');
+        } catch (err) {
+            expect(err.message).toContain('duplicate key error');
+        }
+    });
+
+    test('StudentId should be at least 100000000', async () => {
+        try {
+            await User.create({
+                emailAddress: "test3@myseneca.ca",
+                password: "test",
+                studentId: 12131,
+            })
+
+            throw new Error('Save operation should not succeed');
+        } catch (err) {
+            expect(err.message).toContain('Must be at least 100000000, got 12131')
+        }
+    });
+
+    test('StudentId should not be more than 999999999', async () => {
+        try {
+            await User.create({
+                emailAddress: "test4@myseneca.ca",
+                password: "test",
+                studentId: 19999993433,
+            })
+
+            throw new Error('Save operation should not succeed');
+        } catch (err) {
+            expect(err.message).toContain('Must be at at most 999999999, got 19999993433')
+        }
+    });
+})
