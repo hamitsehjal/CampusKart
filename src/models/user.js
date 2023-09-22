@@ -28,7 +28,7 @@ const userSchema = new Schema({
 
 }, { timestamps: true })
 
-userSchema.pre('save', async function (next)){
+userSchema.pre('save', async function (next) {
     const user = this;
 
     // check if the password field for document is modified or not
@@ -48,7 +48,7 @@ userSchema.pre('save', async function (next)){
         return next(error);
     }
 
-}
+});
 
 const User = mongoose.model('User', userSchema);
 
