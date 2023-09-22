@@ -150,7 +150,7 @@ describe('If defined, REVIEWS should adhere Schema correctly', () => {
             category: 'Fruits',
             reviews: [
                 {
-                    user: new mongoose.Types.ObjectId(),
+                    userId: new mongoose.Types.ObjectId(),
                     comments: "It was Okay",
                 }
             ]
@@ -167,7 +167,7 @@ describe('If defined, REVIEWS should adhere Schema correctly', () => {
             category: 'Fruits',
             reviews: [
                 {
-                    user: new mongoose.Types.ObjectId(),
+                    userId: new mongoose.Types.ObjectId(),
                     rating: 0,
                     comments: "It was Okay",
                 }
@@ -188,7 +188,7 @@ describe('If defined, REVIEWS should adhere Schema correctly', () => {
             category: 'Fruits',
             reviews: [
                 {
-                    user: new mongoose.Types.ObjectId(),
+                    userId: new mongoose.Types.ObjectId(),
                     rating: 7,
                     comments: "It was Okay",
                 }

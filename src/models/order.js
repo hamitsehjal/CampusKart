@@ -5,7 +5,7 @@ const Product = require('./product');
 const Location = require('./location');
 const { Schema } = mongoose;
 const itemSchema = new Schema({
-    product: {
+    productId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: Product,
         required: true,
@@ -17,12 +17,12 @@ const itemSchema = new Schema({
     }
 })
 const orderSchema = new Schema({
-    user: {
+    userId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: User,
         required: true,
     },
-    store: {
+    storeId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: Store,
         required: true,
@@ -40,7 +40,7 @@ const orderSchema = new Schema({
         type: [itemSchema],
         default: []
     },
-    location: {
+    locationId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: Location,
         required: true
