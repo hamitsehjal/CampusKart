@@ -1,31 +1,11 @@
 const mongoose = require('mongoose');
-
+const { addressSchema } = require('./store');
 const { Schema } = mongoose;
 
 const locationSchema = new Schema({
     address: {
-        postalCode: {
-            type: String,
-            required: true,
-        }
-        addressLine1: {
-            type: String,
-            required: true,
-        },
-        addressLine2: String,
-        city: {
-            type: String,
-            required: true,
-        },
-        state: {
-            type: String,
-            required: true,
-        },
-        country:
-        {
-            type: String,
-            required: true,
-        }
+        type: addressSchema,
+        required: true,
     },
     label: {
         type: String,

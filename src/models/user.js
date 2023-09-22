@@ -18,8 +18,8 @@ const userSchema = new Schema({
         type: Number,
         required: true,
         unique: true,
-        min: 100000000,
-        max: 999999999,
+        min: [100000000, 'Must be at least 100000000, got {VALUE}'],
+        max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
     },
     profilePicture: {
         type: Buffer,
@@ -28,7 +28,7 @@ const userSchema = new Schema({
 
 }, { timestamps: true })
 
-userSchema.pre('save', async function (next)){
+userSchema.pre('save', async function (next) {
     const user = this;
 
     // check if the password field for document is modified or not
@@ -48,7 +48,7 @@ userSchema.pre('save', async function (next)){
         return next(error);
     }
 
-}
+});
 
 const User = mongoose.model('User', userSchema);
 
