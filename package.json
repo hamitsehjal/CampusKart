@@ -6,13 +6,16 @@
   "module": "commonjs",
   "scripts": {
     "dev": "nodemon ./src/app.js",
-    "lint": "eslint --config .eslintrc.js \"./src/**/*.js\" \"./tests/**/*.js\""
+    "lint": "eslint --config .eslintrc.js \"./src/**/*.js\" \"./tests/**/*.js\"",
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "author": "Hamit Sehjal",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^8.15.1",
     "nodemon": "^3.0.1",
     "prettier": "3.0.3"
   },
