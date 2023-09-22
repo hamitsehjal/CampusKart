@@ -7,7 +7,7 @@ afterAll(async () => await dbDisconnect());
 
 
 describe('Product Schema Validation', () => {
-    test('Should throw an error if `User-Reference` is not specified', async () => {
+    test('Should throw an error if `Store-Reference` is not specified', async () => {
 
         const createProduct = () => Product.create({
             name: "Mangoes",
@@ -24,7 +24,7 @@ describe('Product Schema Validation', () => {
     test('Should throw an error if `Name` is not specified', async () => {
 
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             price: 50,
             stockQuantity: 500,
             category: 'Fruits',
@@ -37,7 +37,7 @@ describe('Product Schema Validation', () => {
 
     test('Should throw an error if `price` is not specified', async () => {
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             stockQuantity: 500,
             category: 'Fruits',
@@ -51,7 +51,7 @@ describe('Product Schema Validation', () => {
 
     test('Price cannot be negative', async () => {
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: -1,
             stockQuantity: 500,
@@ -67,7 +67,7 @@ describe('Product Schema Validation', () => {
     test('Should throw an error if `stock Quantity` is not specified', async () => {
 
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: 50,
             category: 'Fruits',
@@ -81,7 +81,7 @@ describe('Product Schema Validation', () => {
 
     test('Stock Quantity cannot be negative', async () => {
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: 50,
             stockQuantity: -3,
@@ -95,7 +95,7 @@ describe('Product Schema Validation', () => {
 
     test('category should be defined for the product', async () => {
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: 50,
         })
@@ -107,7 +107,7 @@ describe('Product Schema Validation', () => {
 
     test('a VALID Category should be defined from pre-defined set', async () => {
         const createProduct = () => Product.create({
-            user: new mongoose.Types.ObjectId(),
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: 50,
             category: 'towels',
@@ -125,6 +125,7 @@ describe('Product Schema Validation', () => {
 describe('If defined, REVIEWS should adhere Schema correctly', () => {
     test('Should throw an error if `User-Reference` is not specified', async () => {
         const createProduct = () => Product.create({
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: 50,
             stockQuantity: 500,
@@ -142,6 +143,7 @@ describe('If defined, REVIEWS should adhere Schema correctly', () => {
 
     test('Should throw an error if `rating` is not specified', async () => {
         const createProduct = () => Product.create({
+            storeId: new mongoose.Types.ObjectId(),
             name: "Mangoes",
             price: 50,
             stockQuantity: 500,
@@ -155,5 +157,46 @@ describe('If defined, REVIEWS should adhere Schema correctly', () => {
         });
         expect.assertions(1);
         await expect(createProduct()).rejects.toThrow();
+    });
+    test('Should throw validation error if rating is less than 1', async () => {
+        const createProduct = () => Product.create({
+            storeId: new mongoose.Types.ObjectId(),
+            name: "Mangoes",
+            price: 50,
+            stockQuantity: 500,
+            category: 'Fruits',
+            reviews: [
+                {
+                    user: new mongoose.Types.ObjectId(),
+                    rating: 0,
+                    comments: "It was Okay",
+                }
+            ]
+        });
+        expect.assertions(1);
+
+        await createProduct().catch(e => expect(e.message).toContain('Must be at least 1, got 0'))
+
+    });
+
+    test('Should throw validation error if rating is more than 5', async () => {
+        const createProduct = () => Product.create({
+            storeId: new mongoose.Types.ObjectId(),
+            name: "Mangoes",
+            price: 50,
+            stockQuantity: 500,
+            category: 'Fruits',
+            reviews: [
+                {
+                    user: new mongoose.Types.ObjectId(),
+                    rating: 7,
+                    comments: "It was Okay",
+                }
+            ]
+        });
+        expect.assertions(1);
+
+        await createProduct().catch(e => expect(e.message).toContain('can be at most 5, got 7'))
+
     });
 })
