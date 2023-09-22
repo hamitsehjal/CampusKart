@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Store = require('./store');
+const { Store } = require('./store');
 const User = require('./user');
 
 const { Schema } = mongoose;
@@ -33,12 +33,12 @@ const productSchema = new Schema({
     price: {
         type: Number,
         required: true,
-        min: 0 //should be a positive value
+        min: [0, 'Must be a positive value, got {VALUE}'] //should be a positive value
     },
     stockQuantity: {
         type: Number,
         required: true,
-        min: 0// should be a positive value
+        min: [0, 'Must be a positive value, got {VALUE}']// should be a positive value
     },
     image: {
         type: Buffer,
@@ -46,26 +46,33 @@ const productSchema = new Schema({
     },
     category: {
         type: String,
-        enum: [
-            'Fruits',
-            'Vegetables',
-            'Dairy',
-            'Meat',
-            'Seafood',
-            'Bakery',
-            'Canned Goods',
-            'Frozen Foods',
-            'Snacks',
-            'Beverages',
-            'Household',
-            'Personal Care',
-            'Cleaning Supplies',
-            'Baby Care',
-        ],
+        enum:
+        {
+            values: [
+                'Fruits',
+                'Vegetables',
+                'Dairy',
+                'Meat',
+                'Seafood',
+                'Bakery',
+                'Canned Goods',
+                'Frozen Foods',
+                'Snacks',
+                'Beverages',
+                'Household',
+                'Personal Care',
+                'Cleaning Supplies',
+                'Baby Care',
+            ],
+            message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+        },
         required: true,
         index: true,
     },
-    reviews: [reviewSchema],
+    reviews: {
+        type: [reviewSchema],
+        default: []
+    },
 }, {
     timestamps: true
 });
