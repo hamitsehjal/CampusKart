@@ -1,4 +1,5 @@
-const Store = require('../../../src/models/store');
+const { Store } = require('../../../src/models/store');
+
 const { dbConnect, dbDisconnect } = require('../test_connection');
 
 
