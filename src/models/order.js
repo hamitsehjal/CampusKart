@@ -1,10 +1,21 @@
 const mongoose = require('mongoose');
 const User = require('./user');
-const Store = require('./store');
+const { Store } = require('./store');
 const Product = require('./product');
 const Location = require('./location');
 const { Schema } = mongoose;
-
+const itemSchema = new Schema({
+    product: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: Product,
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: [1, 'Must be a at least 1, got {VALUE}']
+    }
+})
 const orderSchema = new Schema({
     user: {
         type: mongoose.SchemaTypes.ObjectId,
@@ -18,21 +29,17 @@ const orderSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'processing', 'completed', 'cancelled'],
-
+        enum: {
+            values: ['incomplete', 'complete', 'cancelled'],
+            message: 'enum validator failed for path `status` with value `{VALUE}'
+        },
+        required: true,
+        default: 'incomplete',
     },
-    items: [
-        {
-            product: {
-                type: mongoose.SchemaTypes.ObjectId,
-                ref: Product,
-                required: true,
-            },
-            quantity: {
-                type: Number
-            }
-        }
-    ],
+    items: {
+        type: [itemSchema],
+        default: []
+    },
     location: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: Location,
