@@ -2,6 +2,34 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const addressSchema = new Schema({
+    postalCode: {
+        type: String,
+        required: true,
+    },
+    addressLine1: {
+        type: String,
+        required: true,
+    },
+    addressLine2: {
+        type: String,
+        default: "",
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    state: {
+        type: String,
+        required: true,
+    },
+    country:
+    {
+        type: String,
+        required: true,
+    }
+
+})
 const storeSchema = new Schema({
     name: {
         type: String,
@@ -12,31 +40,8 @@ const storeSchema = new Schema({
         required: true
     },
     location: {
-        postalCode: {
-            type: String,
-            required: true,
-        },
-        addressLine1: {
-            type: String,
-            required: true,
-        },
-        addressLine2: {
-            type: String,
-            default: "",
-        },
-        city: {
-            type: String,
-            required: true,
-        },
-        state: {
-            type: String,
-            required: true,
-        },
-        country:
-        {
-            type: String,
-            required: true,
-        }
+        type: addressSchema,
+        required: true,
     },
     openHours: {
         type: String,
@@ -46,4 +51,5 @@ const storeSchema = new Schema({
 
 const Store = mongoose.model('Store', storeSchema);
 
-module.exports = Store;
+module.exports.Store = Store;
+module.exports.addressSchema = addressSchema;
