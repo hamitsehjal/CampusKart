@@ -4,7 +4,8 @@ const { createErrorResponse } = require('./response');
 
 const app = express();
 
-
+// middleware to parse json requests
+app.use(express.json());
 // Define routes
 
 
