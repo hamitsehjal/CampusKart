@@ -1,6 +1,6 @@
 {
   "name": "campuscart-backend",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "MongoDB Setup",
   "main": "index.js",
   "module": "commonjs",
