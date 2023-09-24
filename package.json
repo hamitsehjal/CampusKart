@@ -5,7 +5,7 @@
   "main": "index.js",
   "module": "commonjs",
   "scripts": {
-    "dev": "nodemon ./src/app.js",
+    "dev": "nodemon ./src/index.js",
     "lint": "eslint --config .eslintrc.js \"./src/**/*.js\" \"./tests/**/*.js\"",
     "test": "jest --runInBand --detectOpenHandles"
   },
