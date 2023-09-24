@@ -3,19 +3,20 @@
 const stoppable = require('stoppable');
 const app = require('./app');
 const db = require('./config/database');
+const logger = require('./logger');
 
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
 const server = stoppable(
-    app.listen(PORT, () => {
-        console.log(`Server running on PORT: ${PORT}`);
-        db().then(() => {
-            console.log('EVERYTHING OK - YOU CAN PROCEED');
-        }).catch((err) => {
-            console.log(`STOP!!! - ERROR: ${err}`);
-        });
-    }))
+  app.listen(PORT, () => {
+    logger.info({ PORT }, `Server Started`)
+    db().then(() => {
+      logger.info(`MongoDB Connected`)
+    }).catch((err) => {
+      logger.error({ err }, `Error Occurred`)
+    });
+  }))
 
 
 module.exports = server;
