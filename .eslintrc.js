@@ -5,7 +5,7 @@ module.exports = {
     },
     "extends": ["eslint:recommended", "prettier"],
     "parserOptions": {
-        "ecmaVersion": latest
+        "ecmaVersion": "latest",
     },
     "rules": {
 
