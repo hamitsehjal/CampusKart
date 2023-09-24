@@ -1,12 +1,16 @@
 const express = require('express');
+
+
 const { createSuccessResponse } = require('../response');
 const { hostname } = require('os');
 const { version, author } = require('../../package.json');
+
 const router = express.Router();
 
 
 // Any routes defined in 'api' module will be accessible under '/v1' prefix
-router.use('/v1', require('./api'));
+// router.use('/v1', require('./api'));
+
 
 // Health Check Route
 
@@ -24,5 +28,11 @@ router.get('/', (req, res) => {
     res.status(200).json(successResponse);
 
 });
+
+// Register Route
+router.post('/v1/register', require('./register'));
+
+// login route
+router.post('/v1/login', require('./login'));
 
 module.exports = router;
