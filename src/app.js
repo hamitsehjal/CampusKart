@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
+const passport = require('passport');
+
+const passportStrategy = require('./authorization');
+
 const { createErrorResponse } = require('./response');
 const logger = require('./logger');
 const pino = require('pino-http')(
@@ -29,6 +33,9 @@ app.use(cors())
 
 app.use(compression());
 // Define routes
+
+passport.use(passportStrategy);
+app.use(passport.initialize());
 
 
 // Letting express know to use the routes defined in the 'routes' module
