@@ -8,7 +8,7 @@
     "start": "node ./src/index.js",
     "dev": "cross-env LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "lint": "eslint --config .eslintrc.js \"./src/**/*.js\" \"./tests/**/*.js\"",
-    "test": "jest --runInBand --detectOpenHandles"
+    "test": "jest -c jest.config.js --runInBand --detectOpenHandles"
   },
   "author": "Hamit Sehjal",
   "license": "ISC",
@@ -22,7 +22,8 @@
     "pino": "^8.15.1",
     "pino-http": "^8.5.0",
     "pino-pretty": "^10.2.0",
-    "prettier": "3.0.3"
+    "prettier": "3.0.3",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
