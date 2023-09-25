@@ -17,11 +17,12 @@ module.exports = async (req, res) => {
     const user = await checkUser(email, password);
 
     // User is logged in, create JWT TOKEN
-    jwt.sign({ user }, 'secret', { expiresIn: '1h' }, (err, token) => {
+    jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
       if (err) {
         logger.error({ err }, `Error creating Tokens!`)
         return res.status(500).json(createErrorResponse(500, 'Error creating Tokens!!'))
       }
+      logger.info({ token }, 'Token Generated for User');
       const successResponse = createSuccessResponse({
         "message": "Logged In",
         "token": token,
