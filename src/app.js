@@ -1,17 +1,67 @@
 const express = require('express');
-const db = require('./config/database');
-require('dotenv').config();
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const passport = require('passport');
+
+const passportStrategy = require('./authorization');
+
+const { createErrorResponse } = require('./response');
+const logger = require('./logger');
+const pino = require('pino-http')(
+  {
+    // Use our default logger, that is already configured
+    logger,
+  }
+)
 
 const app = express();
 
-const PORT = process.env.PORT || 8080;
+// Use pino for structured logging
+app.use(pino);
 
-db()
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server running on PORT ${PORT}`);
-        });
+// security middleware
+app.use(helmet());
 
-    }).catch((error) => {
-        console.log(error);
-    })
+// middleware to parse json requests
+app.use(express.json());
+
+// enables cross-site resource sharing
+app.use(cors())
+
+// compress the response headers
+
+app.use(compression());
+// Define routes
+
+passport.use(passportStrategy);
+app.use(passport.initialize());
+
+
+// Letting express know to use the routes defined in the 'routes' module
+// for any request coming ot root URL
+app.use('/', require('./routes'));
+
+
+// Catch-All Routes for unmatched URLs 
+app.use((req, res) => {
+  const errorResponse = createErrorResponse(404, "Resource doesn't exist!!")
+  res.status(404).json(errorResponse);
+})
+
+// Error Handling Middleware
+app.use((err, req, res) => {
+  const errCode = err.statusCode || 500;
+  const errMsg = err.statusMessage || 'Unable to process Request';
+
+  // If there is any server error, we want to see what's happening
+  if (errCode > 499) {
+    logger.error({ err }, `Error processing request`);
+  }
+
+  const errorResponse = createErrorResponse(errCode, errMsg);
+
+  res.status(errCode).json(errorResponse);
+
+})
+module.exports = app;
