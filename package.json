@@ -5,7 +5,8 @@
   "main": "index.js",
   "module": "commonjs",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
+    "dev": "cross-env LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "lint": "eslint --config .eslintrc.js \"./src/**/*.js\" \"./tests/**/*.js\"",
     "test": "jest --runInBand --detectOpenHandles"
   },
@@ -32,6 +33,8 @@
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
     "stoppable": "^1.1.0"
   }
 }
