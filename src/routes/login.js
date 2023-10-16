@@ -8,69 +8,44 @@ const { createErrorResponse, createSuccessResponse } = require('../response');
 const logger = require('../logger');
 
 module.exports = async (req, res) => {
+  /**
+   * 1. Extract email and password (Both are required)
+   * 2. Check if our database has existing user with the 'email'
+   *  - If no, return up the error response 
+   * 3. Compare up the password 
+   * 4. If Matches, return JWT Token 
+   */
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json(createErrorResponse(400, 'Invalid Data'));
-    }
-    const user = await checkUser(email, password);
+    // check if account exists 
+    const user = await User.findOne({ email });
 
-    // User is logged in, create JWT TOKEN
-    jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) {
-        logger.error({ err }, `Error creating Tokens!`)
-        return res.status(500).json(createErrorResponse(500, 'Error creating Tokens!!'))
-      }
-      logger.info({ token }, 'Token Generated for User');
-      const successResponse = createSuccessResponse({
-        "message": "Logged In",
-        "token": token,
-      });
-      res.status(200).json(successResponse);
+    if (!user) {
+      logger.info(`Account doesn't exist for email: ${email}`);
+      return res.status(422).json(createErrorResponse(422, `LOGIN FAILED: Account Doesn't Exist for ${email}`));
+    }
+
+    // Compare password 
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      logger.info(`LOGIN FAILED: Passwords doesn't Matches`)
+      return res.status(422).json(createErrorResponse(422, `LOGIN FAILED: Passwords doesn't Matches`));
+    }
+
+    // Authentication Completes, Create JWT Token 
+    const token = jwt.sign({ user_id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    logger.debug({ Token: token }, `Token Issued to User`);
+    const successResponse = createSuccessResponse({
+      "token": token,
+      "message": "Logged In",
     })
+    return res.status(200).json(successResponse);
 
   } catch (err) {
     logger.error({ err }, `${err.message}`);
-    return res.status(401).json(createErrorResponse(401, "Unauthorized"));
+    return res.status(500).json(createErrorResponse(401, "Error Logging In"));
   }
 
 }
 
-async function checkUser(email, password) {
-  /**
-   * 1. data consists of emailAddress and password
-   * 2. Find the user based on emailAddress from database
-   *      - If exists, retrieve and match password 
-   *          - If matches, return the user object
-   *          - Doesn't match, throw an error
-   *      - Doesn't exist, throw an error
-   */
-
-  try {
-    logger.info({ "user": email }, "User's Info");
-
-    const user = await User.findOne({ emailAddress: email }).exec();
-    if (!user) {
-      logger.error(`FAILED: User ${email} WAS NOT FOUND`)
-      throw new Error(`FAILED: User ${email} WAS NOT FOUND`)
-    }
-
-    // Perform the match
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (isMatch) {
-      return user;
-    }
-    else {
-      logger.err(`Passwords doesn't match`)
-      throw new Error(`FAILED: Passwords doesn't match`)
-    }
-
-  } catch (err) {
-    logger.err(`Error: ${err.message}`)
-    throw new Error(`Error: ${err.message}`)
-  }
-
-
-}

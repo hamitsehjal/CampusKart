@@ -4,49 +4,52 @@ const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    emailAddress: {
-        type: String,
-        required: true,
-        unique: true,
-        match: /^[a-zA-Z0-9._%+-]+@myseneca\.ca$/,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    studentId: {
-        type: Number,
-        required: true,
-        unique: true,
-        min: [100000000, 'Must be at least 100000000, got {VALUE}'],
-        max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
-    },
-    profilePicture: {
-        type: Buffer,
-        default: Buffer.from(''), // Initializing as an empty buffer
-    }
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /^[a-zA-Z0-9._%+-]+@myseneca\.ca$/,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  studentId: {
+    type: Number,
+    required: true,
+    unique: true,
+    min: [100000000, 'Must be at least 100000000, got {VALUE}'],
+    max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
+  },
+  profile: {
+    type: String,
+  }
 
 }, { timestamps: true })
 
 userSchema.pre('save', async function (next) {
-    const user = this;
+  const user = this;
 
-    // check if the password field for document is modified or not
-    if (!user.isModified('password')) {
-        return next();
-    }
+  // check if the password field for document is modified or not
+  if (!user.isModified('password')) {
+    return next();
+  }
 
-    try {
-        // Generate a salt and hash teh password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(user.password, salt);
+  try {
+    // Generate a salt and hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
 
-        user.password = hashedPassword;
-        next();
-    } catch (error) {
-        console.log(error);
-        return next(error);
-    }
+    user.password = hashedPassword;
+    next();
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
 
 });
 
