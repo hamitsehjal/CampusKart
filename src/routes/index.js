@@ -1,6 +1,5 @@
 const express = require('express');
-const passport = require('passport');
-
+const authenticateUser = require('../auth');
 const { createSuccessResponse } = require('../response');
 const { hostname } = require('os');
 const { version, author } = require('../../package.json');
@@ -9,7 +8,7 @@ const router = express.Router();
 
 
 // Any routes defined in 'api' module will be accessible under '/v1' prefix
-router.use('/v1', passport.authenticate('jwt', { session: false }), require('./api'));
+router.use('/v1', authenticateUser, require('./api'));
 
 
 // Health Check Route
@@ -30,9 +29,9 @@ router.get('/', (req, res) => {
 });
 
 // Register Route
-router.post('/v1/register', require('./register'));
+router.post('/register', require('./register'));
 
 // login route
-router.post('/v1/login', require('./login'));
+router.post('/login', require('./login'));
 
 module.exports = router;
