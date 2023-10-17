@@ -4,9 +4,7 @@ const multer = require('multer');
 // Configure Storage
 const diskStorage = multer.diskStorage({
   // configuration
-  destination: (req, file, cb) => {
-    cb(null, './public/uploads')
-  },
+  destination: 'uploads/',
   filename: (req, file, cb) => {
 
     const { firstName, lastName } = req.body;
