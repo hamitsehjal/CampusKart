@@ -4,7 +4,11 @@ const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -25,8 +29,9 @@ const userSchema = new Schema({
     min: [100000000, 'Must be at least 100000000, got {VALUE}'],
     max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
   },
-  profile: {
+  profileKey: {
     type: String,
+    default: "users/default_image_1697511474724",
   }
 
 }, { timestamps: true })

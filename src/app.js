@@ -14,7 +14,6 @@ const pino = require('pino-http')(
 )
 
 const app = express();
-
 // Use pino for structured logging
 app.use(pino);
 
