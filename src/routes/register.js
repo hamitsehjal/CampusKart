@@ -1,7 +1,10 @@
 // src/routes/api/register.js 
+const fs = require('fs').promises;
+
 const { createErrorResponse, createSuccessResponse } = require('../response');
 const { User } = require('../models');
 const logger = require('../logger');
+const { uploadFileToS3 } = require('../config/s3Client');
 module.exports = async (req, res) => {
   /*
     1. Check if email address is already registered
@@ -11,24 +14,40 @@ module.exports = async (req, res) => {
   try {
 
     // Extract required properties and rest from request's body
-    const { name, email, password, studentId, ...rest } = req.body;
-    const profile = rest.profile || "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
-
+    const { firstName, lastName, email, password, studentId } = req.body;
     // Check if email is already registered
     const user = await User.findOne({ email });
     if (user) {
       logger.info(`Couldn't create Account: Email already Exists!!`);
       return res.status(422).json(createErrorResponse(422, "Account already Exist"));
     }
+    let profileKey = "";
+    if (req.file) {
+      const profile = req.file;
+
+      logger.debug({ 'Multer File': profile });
+      profileKey = await uploadFileToS3(profile);
+      if (!profileKey) {
+        throw new Error('Error Uploading File to S3');
+      }
+
+      // delete uploaded file from express server
+      deleteFileFromServer(profile.path);
+
+    } else {
+      profileKey = "users/default_image_1697511474724"
+    }
+
 
     // Create a new User 
     const newUser = new User(
       {
-        name,
+        firstName,
+        lastName,
         email,
         password,
         studentId,
-        profile
+        profileKey
       }
     );
     await newUser.save();
@@ -45,3 +64,12 @@ module.exports = async (req, res) => {
 }
 
 
+async function deleteFileFromServer(filePath) {
+  try {
+    await fs.unlink(filePath);
+    logger.debug({ file: filePath }, `File deleted from express Server`);
+  } catch (err) {
+    logger.error({ err }, `Error deleting file from Server`);
+    throw err;
+  }
+}

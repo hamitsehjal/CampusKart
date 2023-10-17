@@ -3,6 +3,7 @@ const authenticateUser = require('../auth');
 const { createSuccessResponse } = require('../response');
 const { hostname } = require('os');
 const { version, author } = require('../../package.json');
+const upload = require('../upload');
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ router.get('/', (req, res) => {
 });
 
 // Register Route
-router.post('/register', require('./register'));
+router.post('/register', upload.single('profile'), require('./register'));
 
 // login route
 router.post('/login', require('./login'));
