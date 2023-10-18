@@ -35,4 +35,7 @@ router.post('/register', upload.single('profile'), require('./register'));
 // login route
 router.post('/login', require('./login'));
 
+// Register Partner
+router.post('/register-partner', require('./registerPartner'));
+
 module.exports = router;
