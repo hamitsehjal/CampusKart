@@ -34,7 +34,8 @@ module.exports = async (req, res) => {
     }
 
     // Authentication Completes, Create JWT Token 
-    const token = jwt.sign({ user_id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const name = `${user.firstName} ${user.lastName}`;
+    const token = jwt.sign({ user_id: user._id, user_name: name }, process.env.JWT_SECRET, { expiresIn: '1h' });
     logger.debug({ Token: token }, `Token Issued to User`);
     const successResponse = createSuccessResponse({
       "token": token,
