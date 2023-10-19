@@ -28,13 +28,13 @@ module.exports = async (req, res) => {
    * 
    */
   try {
-    const { storeName, storeEmail, storeAddress, storeDescription, contactFirstName, contactLastName } = req.body;
+    const { storeName, storeEmail, address, storeDescription, contactFirstName, contactLastName } = req.body;
 
     // Create a new Partner 
     const newPartner = new Partner({
       storeName,
       storeEmail,
-      storeAddress,
+      storeAddress: address,
       storeDescription,
       contactFirstName,
       contactLastName,
