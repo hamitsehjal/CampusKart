@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 });
 
 // Register Route
-router.post('/register', upload.single('profile'), require('./register'));
+router.post('/register-user', upload.single('profile'), require('./register'));
 
 // login route
 router.post('/login', require('./login'));
