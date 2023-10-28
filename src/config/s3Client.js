@@ -51,6 +51,7 @@ async function uploadFileToS3(file) {
   } catch (err) {
     const { Bucket, Key } = params;
     logger.error({ err, Bucket, Key }, `Error Uploading File to S3`);
+    throw new Error(`Unable to upload File to S3`);
   }
 
 }
@@ -72,6 +73,7 @@ async function readFileFromS3(fileKey) {
     return response.Body;
   } catch (err) {
     logger.error({ error: err }, `Error retrieving file from S3`);
+    throw new Error(`Unable to retrieve file from S3`);
   }
 }
 module.exports.uploadFileToS3 = uploadFileToS3;
