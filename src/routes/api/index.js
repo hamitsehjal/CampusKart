@@ -11,8 +11,8 @@ router.get('/images/:key(*)', (req, res) => {
   objectStream.pipe(res);
 });
 
-router.get('/stores', (req, res) => {
-  res.status(200).json({ "message": "Stores Coming!!!" })
-})
+router.get('/stores', require('./stores'));
+
+router.get('/products/:storeId', require('./products'));
 
 module.exports = router;
