@@ -2,18 +2,9 @@ const multer = require('multer');
 
 
 // Configure Storage
-const diskStorage = multer.diskStorage({
-  // configuration
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-
-    const { firstName, lastName } = req.body;
-    const customFileName = `${firstName}_${lastName}_${Date.now()}`;
-    cb(null, customFileName);
-  }
-})
+const memoryStorage = multer.memoryStorage();
 
 // Create an instance of multer
-const upload = multer({ storage: diskStorage });
+const upload = multer({ storage: memoryStorage });
 
 module.exports = upload;
