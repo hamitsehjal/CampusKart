@@ -1,6 +1,7 @@
 const { Store } = require('../../models');
 const logger = require('../../logger');
 const { createErrorResponse, createSuccessResponse } = require('../../response');
+const { generateS3ImageUrl } = require('../../config/s3Client');
 /** 
  * Fetch the Stores from the Database and return them
  */
@@ -14,6 +15,13 @@ module.exports = async (req, res) => {
     }
     else {
       logger.info(`Stores Retrieved!!`);
+      logger.debug({ stores: stores });
+      // Create presigned URL for store images 
+      for (const store of stores) {
+        const url = await generateS3ImageUrl(store.imageName);
+        store.imageUrl = url;
+      }
+      logger.info({ data: stores });
       return res.status(200).json(createSuccessResponse({ data: stores }));
     }
   } catch (err) {

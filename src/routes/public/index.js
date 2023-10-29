@@ -4,11 +4,6 @@ const router = express.Router();
 
 const upload = require('../../upload');
 
-// images routes
-// router.get('/images/stores/:key', require('./s3Images'));
-// router.get('/images/users/:key', require('./s3Images'));
-router.get('/images/:key', require('./s3Images'));
-
 // login route
 router.post('/login', require('./login'));
 // Register Route

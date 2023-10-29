@@ -1,6 +1,4 @@
 // src/routes/api/register.js 
-const fs = require('fs').promises;
-
 const { createErrorResponse, createSuccessResponse } = require('../../response');
 const { User } = require('../../models');
 const logger = require('../../logger');
@@ -21,21 +19,18 @@ module.exports = async (req, res) => {
       logger.info(`Couldn't create Account: Email already Exists!!`);
       return res.status(422).json(createErrorResponse(422, "Account already Exist"));
     }
-    let profileKey = "";
+    let imageName = "";
     if (req.file) {
       const profile = req.file;
 
-      logger.debug({ 'Multer File': profile });
-      profileKey = await uploadFileToS3(profile);
-      if (!profileKey) {
+      console.log('Multer File', profile);
+      imageName = await uploadFileToS3(profile);
+      if (!imageName) {
         throw new Error('Error Uploading File to S3');
       }
 
-      // delete uploaded file from express server
-      deleteFileFromServer(profile.path);
-
     } else {
-      profileKey = "users/default_image_1697511474724"
+      imageName = "default_image"
     }
 
 
@@ -47,7 +42,7 @@ module.exports = async (req, res) => {
         email,
         password,
         studentId,
-        profileKey
+        imageName
       }
     );
     await newUser.save();
@@ -64,12 +59,4 @@ module.exports = async (req, res) => {
 }
 
 
-async function deleteFileFromServer(filePath) {
-  try {
-    await fs.unlink(filePath);
-    logger.debug({ file: filePath }, `File deleted from express Server`);
-  } catch (err) {
-    logger.error({ err }, `Error deleting file from Server`);
-    throw err;
-  }
-}
+

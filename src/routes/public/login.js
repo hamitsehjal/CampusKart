@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../../models');
 const { createErrorResponse, createSuccessResponse } = require('../../response');
 const logger = require('../../logger');
+const { generateS3ImageUrl } = require('../../config/s3Client');
 
 module.exports = async (req, res) => {
   /**
@@ -37,9 +38,14 @@ module.exports = async (req, res) => {
     const name = `${user.firstName} ${user.lastName}`;
     const token = jwt.sign({ user_id: user._id, user_name: name }, process.env.JWT_SECRET, { expiresIn: '1h' });
     logger.debug({ Token: token }, `Token Issued to User`);
+
+    // Create pre-signed URL for user image 
+    const url = await generateS3ImageUrl(user.imageName);
+
     const successResponse = createSuccessResponse({
       "token": token,
       "message": "Logged In",
+      "profileUrl": url,
     })
     return res.status(200).json(successResponse);
 
