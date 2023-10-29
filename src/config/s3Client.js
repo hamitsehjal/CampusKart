@@ -1,9 +1,13 @@
-// const S3 = require('aws-sdk/clients/s3');
+
+const crypto = require('crypto');
+const sharp = require('sharp');
 const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
-const fs = require('fs');
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const logger = require('../logger');
+
 const bucketName = process.env.AWS_S3_BUCKET;
 
+const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
 const getCredentials = () => {
   if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
     const credentials = {
@@ -18,28 +22,32 @@ const getCredentials = () => {
   }
 }
 
-const getS3Endpoint = () => {
-  if (process.env.AWS_S3_ENDPOINT_URL) {
-    logger.debug({ endpoint: process.env.AWS_S3_ENDPOINT_URL }, `Using Alternate S3 Endpoint`);
-    return process.env.AWS_S3_ENDPOINT_URL;
-  }
-}
 
 // Configure AWS S3 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
   credentials: getCredentials,
-  endpoint: getS3Endpoint,
   // We want to use path-style URLs as opposed to virtual-host-type URL
   forcePathStyle: true,
 });
+
+
 // Upload a file to S3 
-async function uploadFileToS3(file) {
-  const fileStream = fs.createReadStream(file.path);
+async function uploadFileToS3(file,) {
+  const { buffer, mimetype } = file;
+  // resize the image 
+  const resizedImage = await sharp(buffer).resize({
+    height: 1920,
+    width: 1080,
+    fit: 'contain'
+  }).toBuffer();
+
+  const imageName = randomImageName();
   const params = {
     Bucket: bucketName,
-    Key: `users/${file.filename}`,
-    Body: fileStream,
+    Key: imageName,
+    Body: resizedImage,
+    ContentType: mimetype,
   }
   // Create a PUT Object Command to send to S3 
   const command = new PutObjectCommand(params);
@@ -56,27 +64,26 @@ async function uploadFileToS3(file) {
 
 }
 
-// Retrieve a file from S3
-async function readFileFromS3(fileKey) {
+// Create Presigned URL for Images
+async function generateS3ImageUrl(fileKey) {
   logger.debug(`S3 Key Received: ${fileKey}`);
   const params = {
     Bucket: bucketName,
     Key: fileKey,
   }
-  logger.debug({ parameters: params }, `Parameters for S3 Retrieval!!`)
   // Create a GET Object command to S3
   const command = new GetObjectCommand(params);
 
   try {
-    const response = await s3.send(command);
-
-    // return the readable stream for the object's data
-    return response.Body;
+    // Generate pre-signed url for S3 Image
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    logger.info(`Presigned URL: ${url}`);
+    return url;
   } catch (err) {
     const { Bucket, Key } = params;
-    logger.error({ err, Bucket, Key }, `Error retrieving file from S3`);
-    throw new Error(`Unable to retrieve file from S3`);
+    logger.error({ err, Bucket, Key }, `Error generating URL for S3 Image`);
+    throw new Error(`Error generating URL for S3 Image`);
   }
 }
 module.exports.uploadFileToS3 = uploadFileToS3;
-module.exports.readFileFromS3 = readFileFromS3;
+module.exports.generateS3ImageUrl = generateS3ImageUrl;
