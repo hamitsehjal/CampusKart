@@ -31,12 +31,8 @@ const userSchema = new Schema({
   },
   imageName: {
     type: String,
-    default: "default_image_1697511474724",
+    default: "users/default_user",
   },
-  imageUrl: {
-    type: String,
-  }
-
 }, { timestamps: true })
 
 userSchema.pre('save', async function (next) {

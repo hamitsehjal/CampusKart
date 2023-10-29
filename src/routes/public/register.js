@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
       }
 
     } else {
-      imageName = "default_image"
+      imageName = "users/default_user"
     }
 
 

@@ -45,7 +45,7 @@ async function uploadFileToS3(file,) {
   const imageName = randomImageName();
   const params = {
     Bucket: bucketName,
-    Key: imageName,
+    Key: `users/${imageName}`,
     Body: resizedImage,
     ContentType: mimetype,
   }
