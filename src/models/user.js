@@ -29,9 +29,12 @@ const userSchema = new Schema({
     min: [100000000, 'Must be at least 100000000, got {VALUE}'],
     max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
   },
-  profileKey: {
+  imageName: {
     type: String,
-    default: "users/default_image_1697511474724",
+    default: "default_image_1697511474724",
+  },
+  imageUrl: {
+    type: String,
   }
 
 }, { timestamps: true })

@@ -54,9 +54,12 @@ const storeSchema = new Schema({
     required: true,
     index: true,
   },
-  thumbnailImage: {
+  imageName: {
     type: String,
     required: true,
+  },
+  imageUrl: {
+    type: String,
   },
   description: {
     type: String,
