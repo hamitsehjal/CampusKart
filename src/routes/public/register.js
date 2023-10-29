@@ -1,10 +1,10 @@
 // src/routes/api/register.js 
 const fs = require('fs').promises;
 
-const { createErrorResponse, createSuccessResponse } = require('../response');
-const { User } = require('../models');
-const logger = require('../logger');
-const { uploadFileToS3 } = require('../config/s3Client');
+const { createErrorResponse, createSuccessResponse } = require('../../response');
+const { User } = require('../../models');
+const logger = require('../../logger');
+const { uploadFileToS3 } = require('../../config/s3Client');
 module.exports = async (req, res) => {
   /*
     1. Check if email address is already registered

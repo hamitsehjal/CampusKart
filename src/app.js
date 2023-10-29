@@ -33,7 +33,7 @@ app.use(compression());
 
 
 // Letting express know to use the routes defined in the 'routes' module
-// for any request coming ot root URL
+// for any request coming of root URL
 app.use('/', require('./routes'));
 
 

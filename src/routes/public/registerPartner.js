@@ -1,6 +1,6 @@
-const { createErrorResponse, createSuccessResponse } = require('../response');
-const { Partner } = require('../models');
-const logger = require('../logger');
+const { createErrorResponse, createSuccessResponse } = require('../../response');
+const { Partner } = require('../../models');
+const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   /**

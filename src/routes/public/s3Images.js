@@ -4,11 +4,11 @@ const { createErrorResponse } = require('../../response');
 
 module.exports = async (req, res) => {
   const key = req.params.key;
+  const s3Key = `${key}`;
+  // const s3Key = `users/${key}`;
+  logger.info(`Image Key: ${s3Key}`)
   try {
-    const objectStream = await readFileFromS3(key);
-
-    // Set the 'Content-Type' to 'image/*'
-    res.setHeaders('Content-Type', 'image/*');
+    const objectStream = await readFileFromS3(s3Key);
 
     res.status(200);
     objectStream.pipe(res);
@@ -17,5 +17,4 @@ module.exports = async (req, res) => {
     logger.error({ err }, `Error handling S3 stream: ${err.message}`);
     return res.status(500).json(createErrorResponse(500, 'Internal Server Error'));
   }
-  readFileFromS3(key);
 }

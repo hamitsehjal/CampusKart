@@ -58,11 +58,12 @@ async function uploadFileToS3(file) {
 
 // Retrieve a file from S3
 async function readFileFromS3(fileKey) {
-
+  logger.debug(`S3 Key Received: ${fileKey}`);
   const params = {
     Bucket: bucketName,
     Key: fileKey,
   }
+  logger.debug({ parameters: params }, `Parameters for S3 Retrieval!!`)
   // Create a GET Object command to S3
   const command = new GetObjectCommand(params);
 
@@ -72,7 +73,8 @@ async function readFileFromS3(fileKey) {
     // return the readable stream for the object's data
     return response.Body;
   } catch (err) {
-    logger.error({ error: err }, `Error retrieving file from S3`);
+    const { Bucket, Key } = params;
+    logger.error({ err, Bucket, Key }, `Error retrieving file from S3`);
     throw new Error(`Unable to retrieve file from S3`);
   }
 }

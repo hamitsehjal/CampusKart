@@ -3,9 +3,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { User } = require('../models');
-const { createErrorResponse, createSuccessResponse } = require('../response');
-const logger = require('../logger');
+const { User } = require('../../models');
+const { createErrorResponse, createSuccessResponse } = require('../../response');
+const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   /**
