@@ -2,20 +2,29 @@ const { Store } = require('../../models');
 const logger = require('../../logger');
 const { createErrorResponse, createSuccessResponse } = require('../../response');
 const { generateS3ImageUrl } = require('../../config/s3Client');
+
 /** 
  * Fetch the Stores from the Database and return them
- * 1. fetch stores from database
- * 2. if no stores, return 404
- * 3. else, create pre-signed url for each store image 
- * 4. return stores 
+ * 1. Extract category from 'req object'
+ * 2. If category exists, make query to database for stores of specific category
+ * 3. else , query all stores - fetch stores from database
+ * 5. if no stores, return 404
+ * 6. else, create pre-signed url for each store image 
+ * 7. return stores 
  */
 module.exports = async (req, res) => {
   try {
-    const stores = await Store.find({});
-
+    const category = req.query.category;
+    let stores = []
+    if (category === 'all') {
+      stores = await Store.find({});
+    }
+    else {
+      stores = await Store.find({ category: category });
+    }
     if (stores.length == 0) {
       logger.info(`No Stores Found!!`);
-      return res.status(404).json(createErrorResponse(404, 'No Stores Found'));
+      return res.status(200).json(createSuccessResponse({ stores: stores }));
     }
     else {
       logger.info(`Stores Retrieved!!`);
