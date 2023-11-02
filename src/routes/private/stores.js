@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
         store.imageUrl = url;
       }
       logger.info({ data: stores });
-      return res.status(200).json(createSuccessResponse({ data: stores }));
+      return res.status(200).json(createSuccessResponse({ stores: stores }));
     }
   } catch (err) {
     logger.error({ err }, `Error retrieving Stores from Database`);
