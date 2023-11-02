@@ -56,7 +56,7 @@ const storeSchema = new Schema({
   },
   imageName: {
     type: String,
-    default: "default_store",
+    default: "stores/default_store",
   },
   imageUrl: {
     type: String,
