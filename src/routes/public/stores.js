@@ -4,6 +4,10 @@ const { createErrorResponse, createSuccessResponse } = require('../../response')
 const { generateS3ImageUrl } = require('../../config/s3Client');
 /** 
  * Fetch the Stores from the Database and return them
+ * 1. fetch stores from database
+ * 2. if no stores, return 404
+ * 3. else, create pre-signed url for each store image 
+ * 4. return stores 
  */
 module.exports = async (req, res) => {
   try {
@@ -15,13 +19,13 @@ module.exports = async (req, res) => {
     }
     else {
       logger.info(`Stores Retrieved!!`);
-      logger.debug({ stores: stores });
+      logger.debug({ data: stores });
       // Create presigned URL for store images 
       for (const store of stores) {
         const url = await generateS3ImageUrl(store.imageName);
         store.imageUrl = url;
       }
-      logger.info({ data: stores });
+      logger.debug({ data: stores });
       return res.status(200).json(createSuccessResponse({ stores: stores }));
     }
   } catch (err) {
