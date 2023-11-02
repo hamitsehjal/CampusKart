@@ -58,6 +58,9 @@ const storeSchema = new Schema({
     type: String,
     default: "default_store",
   },
+  imageUrl: {
+    type: String,
+  },
   description: {
     type: String,
   },
