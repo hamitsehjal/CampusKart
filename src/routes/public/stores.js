@@ -8,13 +8,13 @@ const { generateS3ImageUrl } = require('../../config/s3Client');
  * 1. Extract category from 'req object'
  * 2. If category exists, make query to database for stores of specific category
  * 3. else , query all stores - fetch stores from database
- * 5. if no stores, return 404
+ * 5. if no stores, return 200 with appropriate message
  * 6. else, create pre-signed url for each store image 
  * 7. return stores 
  */
 module.exports = async (req, res) => {
   try {
-    const category = req.query.category;
+    const category = req.query.category || "all";
     let stores = []
     if (category === 'all') {
       stores = await Store.find({});
