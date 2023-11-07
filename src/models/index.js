@@ -5,6 +5,7 @@ const Product = require('./product');
 const Order = require('./order');
 const Partner = require('./partner');
 const StoreCategory = require('./storeCategory');
+const ProductCategory = require('./productCategories');
 
 module.exports.User = User;
 module.exports.Store = Store;
@@ -13,3 +14,4 @@ module.exports.Product = Product;
 module.exports.Order = Order;
 module.exports.Partner = Partner;
 module.exports.StoreCategory = StoreCategory;
+module.exports.ProductCategory = ProductCategory;
