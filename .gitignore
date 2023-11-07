@@ -2,3 +2,5 @@ node_modules/
 .prettierignore
 .vscode/
 .env
+.replit
+replit.nix
