@@ -24,8 +24,8 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  storeId: {
-    type: mongoose.SchemaTypes.ObjectId,
+  store: {
+    type: Schema.Types.ObjectId,
     ref: Store,
     required: true,
   },
