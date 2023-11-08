@@ -2,7 +2,6 @@ const logger = require("../../logger");
 const { Product } = require("../../models");
 const { createErrorResponse, createSuccessResponse } = require("../../response");
 const { generateS3ImageUrl } = require('../../config/s3Client');
-
 /**
  * Returns products for a specific stores based on storeId received as route parameter
  * 
@@ -18,26 +17,33 @@ module.exports = async (req, res) => {
    - else, generate pre-signed url for each product image
    - return 200 with products object
    */
-  const id = req.params.storeId;
+  const id = (req.params.storeId);
+  logger.debug({ "store_id": id });
   const category = req.query.category || "all";
   let products = []
   try {
     if (category == "all") {
-      products = await Product.find({ storeId: id });
+      products = await Product.find({ store: id }).populate({
+        path: 'store',
+        select: '_id name',
+      });
     }
     else {
       products = await Product.find({
-        storeId: id,
+        store: id,
         category: category,
+      }).populate({
+        path: 'store',
+        select: '_id name',
       });
     }
 
     if (products.length == 0) {
-      logger.info(`No Products found for storeId: ${id} with category: ${category}`);
-      return res.status(200).json(createErrorResponse(200, `No Products found for storeId: ${id} with category: ${category}`));
+      logger.info(`No Products found for store_id: ${id} with category: ${category}`);
+      return res.status(404).json(createErrorResponse(404, `No Products found for store_id: ${id} with category: ${category}`));
     }
     else {
-      logger.info(`Products retrieved for storedId: ${id} with category: ${category}`);
+      logger.info(`Products retrieved for store_id: ${id} with category: ${category}`);
       logger.debug({ data: products });
 
       // Create pre-signed URLs for product images
@@ -50,7 +56,7 @@ module.exports = async (req, res) => {
     }
 
   } catch (err) {
-    logger.error({ err }, `Error retrieving products for storeId: ${id} and category: ${category}`);
+    logger.error({ err }, `Error retrieving products for store_id: ${id} and category: ${category}`);
     return res.status(500).json(createErrorResponse(500, `Internal Server Error`));
   }
 
