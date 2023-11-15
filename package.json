@@ -9,7 +9,8 @@
     "dev": "cross-env LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "lint": "eslint --config .eslintrc.js \"./src/**/*.js\" ",
     "test": "jest -c jest.config.js --runInBand --detectOpenHandles",
-    "createStores": "node ./src/config/createStores.js"
+    "createStores": "node ./src/config/createStores.js",
+    "createProducts": "node ./src/config/createProducts.js"
   },
   "author": "Hamit Sehjal",
   "license": "ISC",
