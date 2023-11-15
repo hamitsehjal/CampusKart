@@ -1,0 +1,107 @@
+[
+    {
+        "name": "Real Canadian Superstore",
+        "category": ["Grocery", "Pets", "Electronics"],
+        "imageName": "stores/real-canadian-superstore"
+    },
+    {
+        "name": "Shoppers Drug Mart",
+        "category": ["Grocery", "Beauty"],
+        "imageName": "stores/shoppers-drug-mart"
+    },
+    {
+        "name": "Food Basics",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/food-basics"
+    },
+    {
+        "name": "Costco",
+        "category": ["Grocery", "wholesale", "Electronics"],
+        "imageName": "stores/costco"
+    },
+    {
+        "name": "Walmart",
+        "category": ["Grocery", "Pets", "Electronics"],
+        "imageName": "stores/walmart"
+    },
+    {
+        "name": "Metro",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/metro"
+    },
+    {
+        "name": "Staples",
+        "category": ["Electronics"],
+        "imageName": "stores/staples"
+    },
+    {
+        "name": "Dollarama",
+        "category": ["Grocery", "Electronics"],
+        "imageName": "stores/dollarama"
+    },
+    {
+        "name": "No-Frills",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/no-frills"
+    },
+    {
+        "name": "Michaels Canada",
+        "category": ["Grocery"],
+        "imageName": "stores/michaels-canada"
+    },
+    {
+        "name": "Giant Tiger",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/giant-tiger"
+    },
+    {
+        "name": "Bulk Barn",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/bulk-barn"
+    },
+    {
+        "name": "Fortinos",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/fortinos"
+    },
+    {
+        "name": "Rexall",
+        "category": ["Beauty"],
+        "imageName": "stores/rexall"
+    },
+    {
+        "name": "A1 Cash and Carry",
+        "category": ["wholesale"],
+        "imageName": "stores/a1-cash-and-carry"
+    },
+    {
+        "name": "Seafood City Supermarket Can",
+        "category": ["Grocery"],
+        "imageName": "stores/seafood-City-Supermarket-Can"
+    },
+    {
+        "name": "ON the RUN",
+        "category": ["Grocery"],
+        "imageName": "stores/on-the-run"
+    },
+    {
+        "name": "Brandco Direct",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/brandco-direct"
+    },
+    {
+        "name": "Your Independent Grocer",
+        "category": ["Grocery", "Pets"],
+        "imageName": "stores/Your-Independent-Grocer"
+    },
+    {
+        "name": "Nature's Emporium",
+        "category": ["Grocery","Pets"],
+        "imageName": "stores/natures-emporium"
+    },
+    {
+        "name": "Starsky Fine Foods",
+        "category": ["Grocery"],
+        "imageName": "stores/starsky-fine-foods"
+    }
+]
