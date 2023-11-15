@@ -64,12 +64,6 @@ const storeSchema = new Schema({
   description: {
     type: String,
   },
-  location: {
-    type: addressSchema,
-  },
-  openHours: {
-    type: String,
-  }
 })
 
 const Store = mongoose.model('Store', storeSchema);
