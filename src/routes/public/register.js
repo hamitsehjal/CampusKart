@@ -37,6 +37,7 @@ module.exports = async (req, res) => {
     // Create a new User 
     const newUser = new User(
       {
+        role: "client",
         firstName,
         lastName,
         email,
