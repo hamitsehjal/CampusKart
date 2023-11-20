@@ -4,6 +4,17 @@ const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+  role: {
+    type: String,
+    enum: {
+      values: [
+        'client',
+        'manager',
+      ],
+      message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+    },
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,
@@ -16,7 +27,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    match: /^[a-zA-Z0-9._%+-]+@myseneca\.ca$/,
   },
   password: {
     type: String,
@@ -24,7 +34,6 @@ const userSchema = new Schema({
   },
   studentId: {
     type: Number,
-    required: true,
     unique: true,
     min: [100000000, 'Must be at least 100000000, got {VALUE}'],
     max: [999999999, 'Must be at at most 999999999, got {VALUE}'],
