@@ -8,7 +8,6 @@ const userSchema = new Schema({
     type: String,
     enum: {
       values: [
-        'admin',
         'owner',
         'manager',
         'client',
