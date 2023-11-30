@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcrypt');
+const logger = require('../logger');
 const { Schema } = mongoose;
 
 const addressSchema = new Schema({
@@ -31,6 +32,14 @@ const addressSchema = new Schema({
 
 })
 const storeSchema = new Schema({
+  emailAddress: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true
@@ -66,6 +75,26 @@ const storeSchema = new Schema({
   },
 })
 
+storeSchema.pre('save', async function (next) {
+  const store = this;
+
+  if (!store.isModified('password')) {
+    return next();
+  }
+
+  try {
+    // Generate a salt and hash the password
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(store.password, salt);
+
+    store.password = hashedPassword;
+    next()
+  } catch (error) {
+    logger.error({ error }, `Error occurred while hashing password`);
+    return next(error)
+  }
+})
 const Store = mongoose.model('Store', storeSchema);
 
 module.exports.Store = Store;

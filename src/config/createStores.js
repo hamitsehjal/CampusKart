@@ -18,12 +18,12 @@ async function readStoresFromFile(filePath) {
 
 // write data to a file
 async function writeStoreIdsToFile(storeIds) {
+  const filePath = "data/storeIds.json";
   try {
-    const filePath = "data/storeIds.json";
     await fs.writeFile(filePath, JSON.stringify(storeIds, null, 2), 'utf-8');
     logger.info(`StoreIds written to FilePath: ${filePath}`);
   } catch (err) {
-    logger.erro({ err }, `Error writing data to File with path: ${filePath}`)
+    logger.error({ err }, `Error writing data to File with path: ${filePath}`)
   }
 }
 

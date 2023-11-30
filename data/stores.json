@@ -2,106 +2,148 @@
   {
     "name": "Real Canadian Superstore",
     "category": ["Grocery", "Pets", "Electronics"],
-    "imageName": "stores/real-canadian-superstore"
+    "imageName": "stores/real-canadian-superstore",
+    "email": "realcanadiansuperstore@example.com",
+    "password": "password"
   },
   {
     "name": "Shoppers Drug Mart",
     "category": ["Grocery", "Beauty"],
-    "imageName": "stores/shoppers-drug-mart"
+    "imageName": "stores/shoppers-drug-mart",
+    "email": "shoppersdrugmart@example.com",
+    "password": "password"
   },
   {
     "name": "Food Basics",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/food-basics"
+    "imageName": "stores/food-basics",
+    "email": "foodbasics@example.com",
+    "password": "password"
   },
   {
     "name": "Costco",
     "category": ["Grocery", "Wholesale", "Electronics"],
-    "imageName": "stores/costco"
+    "imageName": "stores/costco",
+    "email": "costco@example.com",
+    "password": "password"
   },
   {
     "name": "Walmart",
     "category": ["Grocery", "Pets", "Electronics"],
-    "imageName": "stores/walmart"
+    "imageName": "stores/walmart",
+    "email": "walmart@example.com",
+    "password": "password"
   },
   {
     "name": "Metro",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/metro"
+    "imageName": "stores/metro",
+    "email": "metro@example.com",
+    "password": "password"
   },
   {
     "name": "Staples",
     "category": ["Electronics"],
-    "imageName": "stores/staples"
+    "imageName": "stores/staples",
+    "email": "staples@example.com",
+    "password": "password"
   },
   {
     "name": "Dollarama",
     "category": ["Grocery", "Electronics"],
-    "imageName": "stores/dollarama"
+    "imageName": "stores/dollarama",
+    "email": "dollarama@example.com",
+    "password": "password"
   },
   {
     "name": "No-Frills",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/no-frills"
+    "imageName": "stores/no-frills",
+    "email": "nofrills@example.com",
+    "password": "password"
   },
   {
     "name": "Michaels Canada",
     "category": ["Grocery"],
-    "imageName": "stores/michaels-canada"
+    "imageName": "stores/michaels-canada",
+    "email": "michaelscanada@example.com",
+    "password": "password"
   },
   {
     "name": "Giant Tiger",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/giant-tiger"
+    "imageName": "stores/giant-tiger",
+    "email": "gianttiger@example.com",
+    "password": "password"
   },
   {
     "name": "Bulk Barn",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/bulk-barn"
+    "imageName": "stores/bulk-barn",
+    "email": "bulkbarn@example.com",
+    "password": "password"
   },
   {
     "name": "Fortinos",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/fortinos"
+    "imageName": "stores/fortinos",
+    "email": "fortinos@example.com",
+    "password": "password"
   },
   {
     "name": "Rexall",
     "category": ["Beauty"],
-    "imageName": "stores/rexall"
+    "imageName": "stores/rexall",
+    "email": "rexall@example.com",
+    "password": "password"
   },
   {
     "name": "A1 Cash and Carry",
     "category": ["Wholesale"],
-    "imageName": "stores/a1-cash-and-carry"
+    "imageName": "stores/a1-cash-and-carry",
+    "email": "a1cashandcarry@example.com",
+    "password": "password"
   },
   {
     "name": "Seafood City Supermarket Can",
     "category": ["Grocery"],
-    "imageName": "stores/seafood-City-Supermarket-Can"
+    "imageName": "stores/seafood-City-Supermarket-Can",
+    "email": "seafoodcity@example.com",
+    "password": "password"
   },
   {
     "name": "ON the RUN",
     "category": ["Grocery"],
-    "imageName": "stores/on-the-run"
+    "imageName": "stores/on-the-run",
+    "email": "ontherun@example.com",
+    "password": "password"
   },
   {
     "name": "Brandco Direct",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/brandco-direct"
+    "imageName": "stores/brandco-direct",
+    "email": "brandcodirect@example.com",
+    "password": "password"
   },
   {
     "name": "Your Independent Grocer",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/Your-Independent-Grocer"
+    "imageName": "stores/Your-Independent-Grocer",
+    "email": "yourindependentgrocer@example.com",
+    "password": "password"
   },
   {
     "name": "Nature's Emporium",
     "category": ["Grocery", "Pets"],
-    "imageName": "stores/natures-emporium"
+    "imageName": "stores/natures-emporium",
+    "email": "naturesemporium@example.com",
+    "password": "password"
   },
   {
     "name": "Starsky Fine Foods",
     "category": ["Grocery"],
-    "imageName": "stores/starsky-fine-foods"
+    "imageName": "stores/starsky-fine-foods",
+    "email": "starskyfinefoods@example.com",
+    "password": "password"
   }
 ]
