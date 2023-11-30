@@ -3,6 +3,7 @@ const { Store } = require('../models');
 const logger = require('../logger');
 const fs = require('fs/promises');
 // src/config/createStores.js
+require('dotenv').config();
 
 
 // read data from the file

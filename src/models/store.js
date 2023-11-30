@@ -32,7 +32,7 @@ const addressSchema = new Schema({
 
 })
 const storeSchema = new Schema({
-  emailAddress: {
+  email: {
     type: String,
     required: true,
   },

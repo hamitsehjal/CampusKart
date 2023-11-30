@@ -3,7 +3,7 @@ const { Product } = require('../models');
 const logger = require('../logger');
 const fs = require('fs/promises');
 // src/config/createStores.js
-
+require('dotenv').config();
 
 // read data from the file
 async function readProductFromFile(filePath) {
@@ -17,13 +17,13 @@ async function readProductFromFile(filePath) {
 }
 
 // write data to a file
-async function writeproductIdsToFile(productIds) {
+async function writeProductIdsToFile(productIds) {
+  const filePath = "data/productIds.json";
   try {
-    const filePath = "data/productIds.json";
     await fs.writeFile(filePath, JSON.stringify(productIds, null, 2), 'utf-8');
     logger.info(`productIds written to FilePath: ${filePath}`);
   } catch (err) {
-    logger.erro({ err }, `Error writing data to File with path: ${filePath}`)
+    logger.error({ err }, `Error writing data to File with path: ${filePath}`)
   }
 }
 
@@ -89,7 +89,7 @@ async function main() {
       return;
     }
 
-    await writeproductIdsToFile(productIds);
+    await writeProductIdsToFile(productIds);
 
     // close connection
     closeConnection();
