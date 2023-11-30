@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
 
   } catch (err) {
     logger.error({ err }, `${err.message}`);
-    return res.status(500).json(createErrorResponse(401, "Error Logging In"));
+    return res.status(401).json(createErrorResponse(401, "Error Logging In"));
   }
 
 }

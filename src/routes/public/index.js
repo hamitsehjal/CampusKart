@@ -17,4 +17,7 @@ router.post('/register-partner', require('./registerPartner'));
 router.get('/stores', require('./stores'));
 router.get('/store-categories', require('./storeCategories'));
 
+// login to store
+router.get('/store-login', require('./storeLogin'));
+
 module.exports = router;
