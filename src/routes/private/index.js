@@ -19,6 +19,8 @@ router.post('/products/:storeId', upload.single('productImage'), require('./prod
 
 
 // Update an Existing Product 
+router.post('/products/:productId', upload.single('productImage'), require('./products/update'));
 
 // Delete a Product
+
 module.exports = router;
