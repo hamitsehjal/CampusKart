@@ -33,7 +33,7 @@ const s3 = new S3Client({
 
 
 // Upload a file to S3 
-async function uploadFileToS3(file,) {
+async function uploadFileToS3(file, folder = 'users') {
   const { buffer, mimetype } = file;
   // resize the image 
   const resizedImage = await sharp(buffer).resize({
@@ -43,9 +43,10 @@ async function uploadFileToS3(file,) {
   }).toBuffer();
 
   const imageName = randomImageName();
+  const key = (folder === 'products') ? `products/${imageName}` : `users/${imageName}`
   const params = {
     Bucket: bucketName,
-    Key: `users/${imageName}`,
+    Key: key,
     Body: resizedImage,
     ContentType: mimetype,
   }
