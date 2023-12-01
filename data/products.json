@@ -1,58 +1,66 @@
 [
   {
-    "store": "6554417ebe5ca8c5338369e9",
+    "store": "6569017fcfed7b4963f8258c",
     "name": "Banana",
     "category": "Fruits",
     "price": "3.5",
-    "imageName": "products/real-canadian-superstore_banana"
+    "imageName": "products/real-canadian-superstore_banana",
+    "quantity": 50
   },
   {
-    "store": "6554417ebe5ca8c5338369e9",
+    "store": "6569017fcfed7b4963f8258c",
     "name": "Strawberries",
     "category": "Fruits",
     "price": "6.00",
-    "imageName": "products/real-canadian-superstore_strawberries"
+    "imageName": "products/real-canadian-superstore_strawberries",
+    "quantity": 35
   },
   {
-    "store": "6554417ebe5ca8c5338369e9",
+    "store": "6569017fcfed7b4963f8258c",
     "name": "Pedigree Dentastix Original Oral Care Treats for Medium Dogs",
     "category": "Canned Goods",
     "price": "25.00",
-    "imageName": "products/real-canadian-superstore_pedigree"
+    "imageName": "products/real-canadian-superstore_pedigree",
+    "quantity": 20
   },
   {
-    "store": "6554417ebe5ca8c5338369e9",
+    "store": "6569017fcfed7b4963f8258c",
     "name": "Life Brand Cool Mist Humidifier",
     "category": "Household",
     "price": "55.00",
-    "imageName": "products/real-canadian-superstore_life-Brand-Cool-Mist-Humidifier"
+    "imageName": "products/real-canadian-superstore_life-Brand-Cool-Mist-Humidifier",
+    "quantity": 5
   },
   {
-    "store": "6554417fbe5ca8c5338369f0",
+    "store": "65690180cfed7b4963f82592",
     "name": "Vaseline Body Lotion",
     "category": "Personal Care",
     "price": "7.00",
-    "imageName": "products/shoppers-drug-mart_vaseline-body-lotion"
+    "imageName": "products/shoppers-drug-mart_vaseline-body-lotion",
+    "quantity": 1
   },
   {
-    "store": "6554417fbe5ca8c5338369f0",
+    "store": "65690180cfed7b4963f82592",
     "name": "Clean & Clear Morning Burst Facial Cleanser",
     "category": "Personal Care",
     "price": "11.00",
-    "imageName": "products/shoppers-drug-mart_Facial-Cleanser"
+    "imageName": "products/shoppers-drug-mart_Facial-Cleanser",
+    "quantity": 2
   },
   {
-    "store": "6554417fbe5ca8c5338369f0",
+    "store": "65690180cfed7b4963f82592",
     "name": "Softsoap Body wash",
     "category": "Personal Care",
     "price": "13.00",
-    "imageName": "products/shoppers-drug-mart_softsoap-body-wash"
+    "imageName": "products/shoppers-drug-mart_softsoap-body-wash",
+    "quantity": 5
   },
   {
-    "store": "6554417fbe5ca8c5338369f0",
+    "store": "65690180cfed7b4963f82592",
     "name": "Dove Soap",
     "category": "Cleaning Supplies",
     "price": "14.99",
-    "imageName": "products/shoppers-drug-mart_dove-soap"
+    "imageName": "products/shoppers-drug-mart_dove-soap",
+    "quantity": 10
   }
 ]
