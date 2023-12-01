@@ -1,9 +1,24 @@
 const express = require('express');
+const upload = require('../../upload');
 const router = express.Router();
 
 
-// products
-router.get('/products/:storeId', require('./products'));
+// products-categories
 router.get('/product-categories', require('./productCategories'));
 
+// products
+
+// get All Products
+router.get('/products/:storeId', require('./products/findAll'));
+
+// Get one Product 
+router.get('/products/:productId', require('./products/findOne'));
+
+// create a New Product
+router.post('/products/:storeId', upload.single('productImage'), require('./products/create'));
+
+
+// Update an Existing Product 
+
+// Delete a Product
 module.exports = router;
