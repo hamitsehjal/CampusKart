@@ -1,4 +1,4 @@
-// src/routes/v1/private/create.js 
+// src/routes/v1/private/update.js 
 
 const { Product } = require('../../../models');
 const { createErrorResponse, createSuccessResponse } = require('../../../response');
@@ -64,7 +64,12 @@ module.exports = async (req, res) => {
 
         const updatedProduct = await Product.findByIdAndUpdate(productId, update, {
             new: true,
-        })
+        });
+
+        if (!updatedProduct) {
+            logger.error(`No product exits for Product Id: ${productId}`);
+            return res.status(404).json(createErrorResponse(404, `No Product Found`));
+        }
         const successResponse = createSuccessResponse({
             message: "Product updated",
             product: updatedProduct,
