@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { Store } = require('../../models');
-const { logger } = require('../../logger');
+const logger = require('../../logger');
 const { createErrorResponse, createSuccessResponse } = require('../../response');
 
 module.exports = async (req, res) => {
@@ -29,11 +29,12 @@ module.exports = async (req, res) => {
         }
 
         // Authentication Complete, create JWT Token
-        const token = jwt.sign({ store_id: store._id, store_name: store.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: store._id, store_name: store.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
         logger.debug({ Token: token }, `Token issued to Store`)
 
         const successResponse = createSuccessResponse({
             "token": token,
+            "storeId": store._id,
             "message": "Logged IN"
         })
 

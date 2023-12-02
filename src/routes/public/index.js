@@ -14,10 +14,10 @@ router.post('/register-user', upload.single('profile'), require('./register'));
 router.post('/register-partner', require('./registerPartner'));
 
 // Stores 
+router.post('/store-login', require('./storeLogin'));
 router.get('/stores', require('./stores'));
 router.get('/store-categories', require('./storeCategories'));
 
 // login to store
-router.get('/store-login', require('./storeLogin'));
 
 module.exports = router;

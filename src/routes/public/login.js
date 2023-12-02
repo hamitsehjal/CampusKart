@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
 
     // Authentication Completes, Create JWT Token 
     const name = `${user.firstName} ${user.lastName}`;
-    const token = jwt.sign({ user_id: user._id, user_name: name }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, user_name: name }, process.env.JWT_SECRET, { expiresIn: '1h' });
     logger.debug({ Token: token }, `Token Issued to User`);
 
     // Create pre-signed URL for user image 

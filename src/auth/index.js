@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
     // Verify the token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     // Attach the payload to the request object 
-    req.user_id = decodedToken.user_id;
+    req.user_id = decodedToken.id;
 
     next();
 
