@@ -40,7 +40,8 @@ module.exports = async (req, res) => {
 
     if (products.length == 0) {
       logger.info(`No Products found for store_id: ${id} with category: ${category}`);
-      return res.status(404).json(createErrorResponse(404, `No Products found for store_id: ${id} with category: ${category}`));
+      // return res.status(404).json(createErrorResponse(404, `No Products found for store_id: ${id} with category: ${category}`));
+      return res.status(200).json(createSuccessResponse({ products: products }));
     }
 
     logger.info(`Products retrieved for store_id: ${id} with category: ${category}`);

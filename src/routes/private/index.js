@@ -17,7 +17,6 @@ router.get('/products/:productId', require('./products/findOne'));
 // create a New Product
 router.post('/products/:storeId', upload.single('productImage'), require('./products/create'));
 
-
 // Update an Existing Product 
 router.post('/products/:productId', upload.single('productImage'), require('./products/update'));
 
