@@ -67,6 +67,9 @@ const productSchema = new Schema({
   imageUrl: {
     type: String,
   },
+  quantity: {
+    type: Number,
+  },
   reviews: {
     type: [reviewSchema],
     default: []

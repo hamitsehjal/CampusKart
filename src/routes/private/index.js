@@ -8,17 +8,17 @@ router.get('/product-categories', require('./productCategories'));
 
 // products
 
+// create a New Product
+router.post('/products', upload.single('profile'), require('./products/create'));
 // get All Products
 router.get('/products/:storeId', require('./products/findAll'));
 
 // Get one Product 
 router.get('/products/:productId', require('./products/findOne'));
 
-// create a New Product
-router.post('/products/:storeId', upload.single('productImage'), require('./products/create'));
 
 // Update an Existing Product 
-router.post('/products/:productId', upload.single('productImage'), require('./products/update'));
+router.put('/products/:productId', upload.single('profile'), require('./products/update'));
 
 // Delete a Product
 
