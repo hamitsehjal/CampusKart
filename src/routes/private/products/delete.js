@@ -3,7 +3,7 @@
 const { Product } = require('../../../models');
 const { createErrorResponse, createSuccessResponse } = require('../../../response');
 const logger = require('../../../logger');
-
+const mongoose = require('mongoose');
 /**
  * Delete an existing Product
  * 
@@ -12,7 +12,7 @@ const logger = require('../../../logger');
 module.exports = async (req, res) => {
     // Extract the productId 
     const productId = req.params.productId;
-
+    // const id = new mongoose.SchemaTypes.ObjectId(productId)
     const removedProduct = await Product.findByIdAndRemove(productId);
 
     if (!removedProduct) {
